@@ -1,0 +1,9 @@
+{
+  "name": "v-dumitrescu/php-simple-mvc-blog-posts",
+  "description": "Simple PHP MVC Blog Posts example",
+  "autoload": {
+    "psr-4": {
+      "app\\": "./"
+    }
+  }
+}
