@@ -66,5 +66,9 @@ class PostsController
 
   public function update() {}
 
-  public function delete() {}
+  public function delete() {
+    $id = $_POST['id'];
+    $this->postModel->deletePost($id);
+    Url::redirect('/posts');
+  }
 }
