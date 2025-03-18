@@ -12,6 +12,9 @@ class Security
   public static function cleanImage($path)
   {
 
+    $errors = [];
+    $success = null;
+
     define('DS', DIRECTORY_SEPARATOR);
 
     $upload_dir = $path;
@@ -24,7 +27,6 @@ class Security
 
     $allowed_size = 2000000;
 
-    $success = null;
     $file_name = $_FILES['image']['name'];
     $file_tmp_name = $_FILES['image']['tmp_name'];
     $file_size = $_FILES['image']['size'];
@@ -51,24 +53,30 @@ class Security
           imagedestroy($image);
           if (rename($target_path, $upload_dir . $random_name)) {
             $success = true;
-            echo 'File uploaded';
           } else {
-            echo 'Error in file uploading.';
+            $success = false;
+            array_push($errors, 'Error in file uploading.');
           }
           if (file_exists($target_path)) {
             unlink($target_path);
           }
         } else {
-          echo 'File type not supported.';
+          $success = false;
+          array_push($errors, 'File type not supported.');
         }
       } else {
-        echo 'File must be less than 2MB.';
+        if ($_FILES['image']['error'] === 1 || $file_size > $allowed_size)
+          $success = false;
+        array_push($errors, 'File must be less than 2MB.');
       }
     } else {
-      echo 'Invalid file.';
+      $success = false;
+      array_push($errors, 'Invalid file.');
     }
     if ($success) {
       return $upload_dir . $random_name;
+    } else {
+      return $errors;
     }
   }
 }
