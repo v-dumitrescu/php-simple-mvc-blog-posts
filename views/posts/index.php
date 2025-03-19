@@ -15,12 +15,12 @@ if (!empty($posts)):
 
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-<?= Security::cleanHtml($post->id); ?>">
           Delete
         </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="deleteModal-<?= Security::cleanHtml($post->id); ?>" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-body">
