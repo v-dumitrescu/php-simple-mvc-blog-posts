@@ -7,7 +7,7 @@ use app\Database;
 class Post
 {
 
-  private $db;
+  private object $db;
 
   public function __construct()
   {
@@ -24,6 +24,21 @@ class Post
   public function addPost($post)
   {
     $query = $this->db->query('INSERT INTO posts(title, body, image, author) VALUES(:title, :body, :image, :author)');
+    $query->bind($post);
+    $query->exec();
+  }
+
+  public function getPostById($id) {
+    $query = $this->db->query('SELECT * FROM posts WHERE id = :id');
+    $query->bind([
+      'id' => $id
+    ]);
+    $post = $query->exec()->fetch();
+    return $post;
+  }
+
+  public function updatePost($post) {
+    $query = $this->db->query('UPDATE posts SET title = :title, author = :author, image = :image, body = :body WHERE id = :id');
     $query->bind($post);
     $query->exec();
   }

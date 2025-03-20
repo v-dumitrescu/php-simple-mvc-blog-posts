@@ -11,7 +11,7 @@ if (!empty($posts)):
         <small class="card-subtitle mb-2 text-body-secondary">At <?= Security::cleanHtml(date('d/M/Y H:i:s', strtotime($post->created_at))); ?></small>
         <h6 class="card-subtitle mb-2 text-body-secondary">Written by <?= Security::cleanHtml($post->author); ?></h6>
         <p class="card-text"><?= Security::cleanHtml($post->body); ?></p>
-        <a class="btn btn-info text-white" href="/posts/edit">Edit</a>
+        <a class="btn btn-info text-white" href="/posts/update?id=<?=Security::cleanHtml($post->id); ?>">Edit</a>
 
 
         <!-- Button trigger modal -->

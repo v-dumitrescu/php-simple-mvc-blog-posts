@@ -14,7 +14,7 @@ class Router
 
   public function __construct() {
     $this->setRequestMethod($_SERVER['REQUEST_METHOD']);
-    $this->setRequestUri($_SERVER['REQUEST_URI']);
+    $this->setRequestUri(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
   }
 
   public function get($uri, $fn)
