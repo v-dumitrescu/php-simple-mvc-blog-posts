@@ -26,6 +26,24 @@ class PostsController
     ]);
   }
 
+  public function read(Router $router)
+  {
+    $qs = $_SERVER['QUERY_STRING'] ?? null;
+    if (!$qs) {
+      return Url::redirect('/posts');
+    }
+    $id = explode('=', $qs)[1];
+    $post = $this->postModel->getPostById($id);
+
+    if (!$post) {
+      return Url::redirect('/posts');
+    }
+
+    return $router->view('posts/read', [
+      'post' => $post
+    ]);
+  }
+
   public function add(Router $router)
   {
     $req = $router->getRequestMethod();
@@ -82,6 +100,11 @@ class PostsController
       }
       $id = explode('=', $qs)[1];
       $post = $this->postModel->getPostById($id);
+
+      if (!$post) {
+        return Url::redirect('/posts');
+      }
+
       return $router->view('posts/update', [
         'post' => $post
       ]);

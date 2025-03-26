@@ -13,6 +13,7 @@ $router->get('/about', [PagesController::class, 'about']);
 
 // Posts routes
 $router->get('/posts', [PostsController::class, 'index']);
+$router->get('/post/read', [PostsController::class, 'read']);
 $router->get('/posts/add', [PostsController::class, 'add']);
 $router->post('/posts/add', [PostsController::class, 'add']);
 $router->get('/posts/update', [PostsController::class, 'update']);

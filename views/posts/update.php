@@ -1,9 +1,6 @@
 <?php use app\helpers\Url; ?>
 <?php use app\helpers\Security; ?>
 
-<?php if (empty($post)) Url::redirect('/posts'); ?>
-
-
 <h1>Update Post</h1>
 
 <form method="POST" action="/posts/update" enctype="multipart/form-data">
