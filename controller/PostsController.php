@@ -111,8 +111,14 @@ class PostsController
     }
     $post = $this->postModel->getPostById($_POST['id']);
 
-    $image = empty($_FILES['image']['tmp_name']) ?
-      $post->image : Security::cleanImage(IMAGES_UPLOAD_DIRECTORY_PATH);
+    if (empty($_FILES['image']['tmp_name'])) {
+      $image = $post->image;
+    } else {
+      $image = Security::cleanImage(IMAGES_UPLOAD_DIRECTORY_PATH);
+      if (file_exists($post->image) && !is_array($image)) {
+        unlink($post->image);
+      }
+    }
 
     $author = !empty($_POST['author']) ?
       $_POST['author'] : 'Valentin Dumitrescu';
@@ -155,6 +161,8 @@ class PostsController
   public function delete()
   {
     $id = $_POST['id'];
+    $image = $this->postModel->getPostById($id);
+    unlink($image->image);
     $this->postModel->deletePost($id);
     Url::redirect('/posts');
   }
